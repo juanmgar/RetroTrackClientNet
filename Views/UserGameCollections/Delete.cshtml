@@ -1,0 +1,15 @@
+﻿@model UserGameCollection
+
+<h1 class="mb-4">Eliminar Juego de la Colección</h1>
+
+<div class="alert alert-danger">
+    <h5>¿Estás seguro de que quieres eliminar este juego de tu colección?</h5>
+    <p><strong>Juego:</strong> @Model.GameId</p>
+    <p><strong>Usuario:</strong> @Model.User</p>
+</div>
+
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

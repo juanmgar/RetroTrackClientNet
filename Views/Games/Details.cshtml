@@ -1,0 +1,16 @@
+﻿@model Game
+
+<h1 class="mb-4">Detalles del Juego</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p><strong>Plataforma:</strong> @Model.Platform</p>
+        <p><strong>Género:</strong> @Model.Genre</p>
+    </div>
+</div>
+
+<p class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</p>

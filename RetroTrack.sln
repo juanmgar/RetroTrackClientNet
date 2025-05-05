@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroTrack", "RetroTrack.csproj", "{177E463D-5648-4C52-B7FD-182BE2D1D72A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{177E463D-5648-4C52-B7FD-182BE2D1D72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177E463D-5648-4C52-B7FD-182BE2D1D72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177E463D-5648-4C52-B7FD-182BE2D1D72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177E463D-5648-4C52-B7FD-182BE2D1D72A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDD926A9-EED4-4541-84F2-D5DE654597B2}
+	EndGlobalSection
+EndGlobal

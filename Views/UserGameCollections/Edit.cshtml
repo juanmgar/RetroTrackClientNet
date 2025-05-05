@@ -1,0 +1,27 @@
+﻿@model UserGameCollection
+@{
+    ViewData["Title"] = "Editar colección";
+}
+
+<h1 class="mb-4">Editar Juego de la Colección</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="GameId" class="form-label">Juego</label>
+        <select asp-for="GameId" class="form-select" asp-items="ViewBag.Games">
+            <option value="">-- Selecciona un juego --</option>
+        </select>
+        <span asp-validation-for="GameId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="User" class="form-label">Usuario</label>
+        <input asp-for="User" class="form-control" />
+        <span asp-validation-for="User" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<GameStatistics>
+
+<h1>Estadísticas de Juegos</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Juego</th>
+            <th>Total sesiones</th>
+            <th>Minutos jugados</th>
+            <th>Media por sesión</th>
+            <th>Jugadores distintos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stat in Model)
+        {
+            <tr>
+                <td>@stat.GameTitle</td>
+                <td>@stat.TotalSessions</td>
+                <td>@stat.TotalMinutesPlayed</td>
+                <td>@stat.AverageMinutesPerSession.ToString("F2")</td>
+                <td>@stat.DistinctPlayers</td>
+            </tr>
+        }
+    </tbody>
+</table>

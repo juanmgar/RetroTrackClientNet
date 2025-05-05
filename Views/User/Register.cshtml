@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Registro";
+}
+
+<h1>Registro</h1>
+
+<form asp-action="Register" method="post">
+    <div class="mb-3">
+        <label>Usuario</label>
+        <input name="username" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Contraseña</label>
+        <input type="password" name="password" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info mt-2">@ViewBag.Message</div>
+}
