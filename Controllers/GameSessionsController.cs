@@ -16,7 +16,19 @@ namespace RetroTrack.Controllers
         public async Task<IActionResult> Index()
         {
             var sessions = await _apiClient.GetGameSessionsAsync();
-            return View(sessions);
+            var games = await _apiClient.GetGamesAsync();
+
+            var sessionModels = sessions.Select(s => new GameSession
+            {
+                Id = s.Id,
+                GameId = s.GameId,
+                GameTitle = games.FirstOrDefault(g => g.Id == s.GameId)?.Title ?? "Desconocido",
+                PlayerId = s.PlayerId,
+                PlayedAt = s.PlayedAt,
+                MinutesPlayed = s.MinutesPlayed
+            }).ToList();
+
+            return View(sessionModels);
         }
 
         public async Task<IActionResult> Details(int id)

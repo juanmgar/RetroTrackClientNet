@@ -7,5 +7,6 @@
         public String PlayerId { get; set; }
         public DateTime PlayedAt { get; set; }
         public int MinutesPlayed { get; set; }
+        public string GameTitle { get; set; }
     }
 }

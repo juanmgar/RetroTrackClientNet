@@ -1,29 +1,24 @@
 ﻿@model IEnumerable<GameSession>
 
-@{
-    ViewBag.Title = "Game Sessions";
-}
+<h1>Sesiones de Juego</h1>
 
-<h2>Game Sessions</h2>
-
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Game Id</th>
-            <th>Player</th>
-            <th>Played At</th>
-            <th>Minutes Played</th>
+            <th>Juego</th>
+            <th>Jugador</th>
+            <th>Fecha</th>
+            <th>Minutos Jugados</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var session in Model)
         {
             <tr>
-                <td>@session.Id</td>
-                <td>@session.GameId</td>
+                <td>@session.GameTitle</td>
                 <td>@session.PlayerId</td>
-                <td>@session.PlayedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@session.PlayedAt.ToShortDateString()</td>
                 <td>@session.MinutesPlayed</td>
             </tr>
         }

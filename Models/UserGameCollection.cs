@@ -7,7 +7,6 @@ namespace RetroTrack.Models
         public int Id { get; set; }
         public int GameId { get; set; }
         public string User { get; set; }
-
         public string GameTitle { get; set; }
 
     }
