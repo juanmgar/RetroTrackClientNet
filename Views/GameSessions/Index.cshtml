@@ -1,5 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<GameSession>
+
 @{
+    ViewBag.Title = "Game Sessions";
 }
+
+<h2>Game Sessions</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Game Id</th>
+            <th>Player</th>
+            <th>Played At</th>
+            <th>Minutes Played</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model)
+        {
+            <tr>
+                <td>@session.Id</td>
+                <td>@session.GameId</td>
+                <td>@session.PlayerId</td>
+                <td>@session.PlayedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@session.MinutesPlayed</td>
+            </tr>
+        }
+    </tbody>
+</table>
