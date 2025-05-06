@@ -1,15 +1,31 @@
-﻿using RetroTrack.Models;
+﻿using Microsoft.AspNetCore.Http;
+using RetroTrack.Models;
 
 namespace RetroTrack.Services
 {
     public class ApiRestClientService
     {
         private readonly HttpClient _httpClient;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private readonly string _baseApiUrl = "http://localhost:5099/retrotrack/api"; // TODO: Ajustar URL Docker
 
-        public ApiRestClientService(HttpClient httpClient)
+        public ApiRestClientService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        private void AddJwtHeader()
+        {
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("JWT");
+            if (!string.IsNullOrEmpty(token))
+            {
+                if (_httpClient.DefaultRequestHeaders.Contains("Authorization"))
+                    _httpClient.DefaultRequestHeaders.Remove("Authorization");
+
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            }
         }
 
         // -------------------------------
@@ -78,34 +94,40 @@ namespace RetroTrack.Services
 
         public async Task<List<UserGameCollection>> GetUserGameCollectionsAsync()
         {
+            AddJwtHeader();
             return await _httpClient.GetFromJsonAsync<List<UserGameCollection>>($"{_baseApiUrl}/UserGameCollections");
         }
 
         public async Task<UserGameCollection> GetUserGameCollectionByIdAsync(int id)
         {
+            AddJwtHeader();
             return await _httpClient.GetFromJsonAsync<UserGameCollection>($"{_baseApiUrl}/UserGameCollections/{id}");
         }
 
         public async Task AddUserGameCollectionAsync(UserGameCollection collection)
         {
+            AddJwtHeader();
             var response = await _httpClient.PostAsJsonAsync($"{_baseApiUrl}/UserGameCollections", collection);
             response.EnsureSuccessStatusCode();
         }
 
         public async Task UpdateUserGameCollectionAsync(UserGameCollection collection)
         {
+            AddJwtHeader();
             var response = await _httpClient.PutAsJsonAsync($"{_baseApiUrl}/UserGameCollections/{collection.Id}", collection);
             response.EnsureSuccessStatusCode();
         }
 
         public async Task DeleteUserGameCollectionAsync(int id)
         {
+            AddJwtHeader();
             var response = await _httpClient.DeleteAsync($"{_baseApiUrl}/UserGameCollections/{id}");
             response.EnsureSuccessStatusCode();
         }
 
         public async Task<IEnumerable<UserGameCollection>> GetUserGameCollectionsByUserAsync(string username)
         {
+            AddJwtHeader();
             var response = await _httpClient.GetAsync($"{_baseApiUrl}/UserGameCollections/user/{username}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<IEnumerable<UserGameCollection>>();
