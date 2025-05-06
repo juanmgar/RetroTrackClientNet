@@ -104,12 +104,19 @@ namespace RetroTrack.Services
             response.EnsureSuccessStatusCode();
         }
 
+        public async Task<IEnumerable<UserGameCollection>> GetUserGameCollectionsByUserAsync(string username)
+        {
+            var response = await _httpClient.GetAsync($"{_baseApiUrl}/UserGameCollections/user/{username}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<UserGameCollection>>();
+        }
+
         // -------------------------------
-        // Statistics
+        // Obtener Statistics
         // -------------------------------
         public async Task<List<GameStatistics>> GetGameStatisticsAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<GameStatistics>>($"{_baseApiUrl}/GameSessions/statistics");
+            return await _httpClient.GetFromJsonAsync<List<GameStatistics>>($"{_baseApiUrl}/GameStatistics");
         }
 
 

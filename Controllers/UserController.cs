@@ -38,8 +38,9 @@ namespace RetroTrack.Controllers
 
             if (token.StartsWith("ey")) // TODO: simple validación JWT
             {
-                // Guardar el token en sesión (o cookie)
+                // Guardar el token en sesión
                 HttpContext.Session.SetString("JWT", token);
+                HttpContext.Session.SetString("username", username);
                 return RedirectToAction("Index", "Home");
             }
             else

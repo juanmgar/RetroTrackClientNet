@@ -8,5 +8,7 @@ namespace RetroTrack.Models
         public int GameId { get; set; }
         public string User { get; set; }
 
+        public string GameTitle { get; set; }
+
     }
 }
