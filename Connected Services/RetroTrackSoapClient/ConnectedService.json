@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "https://localhost:8095/soap/api/user?wsdl"
+        "https://host.docker.internal:8095/soap/api/user?wsdl"
     ],
     "collectionTypes": [
       "System.Array",

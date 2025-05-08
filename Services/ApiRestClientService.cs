@@ -8,7 +8,7 @@ namespace RetroTrack.Services
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        private readonly string _baseApiUrl = "https://localhost:9095/rest/api";
+        private readonly string _baseApiUrl = "https://host.docker.internal:9095/rest/api";
 
         public ApiRestClientService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
