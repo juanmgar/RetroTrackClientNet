@@ -8,9 +8,18 @@
         <p><strong>Plataforma:</strong> @Model.Platform</p>
         <p><strong>Género:</strong> @Model.Genre</p>
     </div>
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <div class="mt-3">
+            <h5>Descripción:</h5>
+            <p>@Model.Description</p>
+        </div>
+    }
+
 </div>
 
 <p class="mt-3">
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="FetchDescription" asp-route-id="@Model.Id" class="btn btn-primary">Obtener descripción</a>
     <a asp-action="Index" class="btn btn-secondary">Volver</a>
 </p>
