@@ -7,6 +7,14 @@ public class ApiSoapClientService
     public ApiSoapClientService()
     {
         _soapClient = new UserManagementWSClient();
+
+        //Modificación para poder usar certificados sin firmar
+        _soapClient.ClientCredentials.ServiceCertificate.SslCertificateAuthentication =
+        new System.ServiceModel.Security.X509ServiceCertificateAuthentication()
+        {
+            CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None,
+            RevocationMode = System.Security.Cryptography.X509Certificates.X509RevocationMode.NoCheck
+        };
     }
 
     public async Task<string> RegisterUserAsync(string username, string password)

@@ -8,7 +8,7 @@ namespace RetroTrack.Services
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        private readonly string _baseApiUrl = "http://localhost:5099/retrotrack/api"; // TODO: Ajustar URL Docker
+        private readonly string _baseApiUrl = "https://localhost:9095/rest/api";
 
         public ApiRestClientService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {

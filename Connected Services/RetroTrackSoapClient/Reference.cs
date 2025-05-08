@@ -284,7 +284,7 @@ namespace RetroTrackSoapClient
         {
             if ((endpointConfiguration == EndpointConfiguration.UserManagementWSPort))
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding(System.ServiceModel.BasicHttpSecurityMode.Transport);
                 result.MaxBufferSize = int.MaxValue;
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
@@ -298,7 +298,7 @@ namespace RetroTrackSoapClient
         {
             if ((endpointConfiguration == EndpointConfiguration.UserManagementWSPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8085/RetroTrackSoapJava_war_exploded/api/user");
+                return new System.ServiceModel.EndpointAddress("https://localhost:8095/soap/api/user");
             }
             throw new System.InvalidOperationException(string.Format("No se pudo encontrar un punto de conexión con el nombre \"{0}\".", endpointConfiguration));
         }

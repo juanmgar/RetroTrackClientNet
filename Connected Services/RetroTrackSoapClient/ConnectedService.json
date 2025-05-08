@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "http://localhost:8085/RetroTrackSoapJava_war_exploded/api/user?wsdl"
+      "https://localhost:8095/soap/api/user?wsdl"
     ],
     "collectionTypes": [
       "System.Array",
