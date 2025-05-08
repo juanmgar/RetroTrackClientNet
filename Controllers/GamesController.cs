@@ -101,7 +101,7 @@ namespace RetroTrack.Controllers
                 if (firstGame.TryGetProperty("slug", out var slug))
                 {
                     // Hacer otra llamada para obtener el detalle completo
-                    var detailUrl = $"https://api.rawg.io/api/games/{slug.GetString()}?key={apiKey}";
+                    var detailUrl = $"https://api.rawg.io/api/games/{slug.GetString()}?key={codeID}";
                     var detailResponse = await client.GetAsync(detailUrl);
 
                     if (detailResponse.IsSuccessStatusCode)
