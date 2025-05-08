@@ -24,6 +24,14 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;              // asegura que siempre se guarde la cookie
 });
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(7095, listenOptions =>
+    {
+        listenOptions.UseHttps("certs/devcert.pfx", "changeit");
+    });
+});
+
 var app = builder.Build();
 
 // ======== IGNORAR VALIDACIÓN DE CERTIFICADOS SOLO EN DESARROLLO ========
