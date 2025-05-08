@@ -298,7 +298,7 @@ namespace RetroTrackSoapClient
         {
             if ((endpointConfiguration == EndpointConfiguration.UserManagementWSPort))
             {
-                return new System.ServiceModel.EndpointAddress("https://localhost:8095/soap/api/user");
+                return new System.ServiceModel.EndpointAddress("https://host.docker.internal:8095/soap/api/user");
             }
             throw new System.InvalidOperationException(string.Format("No se pudo encontrar un punto de conexión con el nombre \"{0}\".", endpointConfiguration));
         }
