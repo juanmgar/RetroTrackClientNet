@@ -9,7 +9,7 @@
             <th>Jugador</th>
             <th>Fecha</th>
             <th>Minutos Jugados</th>
-            <th></th>
+            <th>Screenshot</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +20,13 @@
                 <td>@session.PlayerId</td>
                 <td>@session.PlayedAt.ToShortDateString()</td>
                 <td>@session.MinutesPlayed</td>
+                <td>
+                    <a class="btn btn-sm btn-primary"
+                       href="http://localhost:5099/retrotrack/api/GameSessions/@session.Id/Screenshot"
+                       target="_blank">
+                        Descargar
+                    </a>
+                </td>
             </tr>
         }
     </tbody>

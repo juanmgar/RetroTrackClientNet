@@ -8,5 +8,6 @@
         public DateTime PlayedAt { get; set; }
         public int MinutesPlayed { get; set; }
         public string GameTitle { get; set; }
+        public byte[] Screenshot { get; set; }
     }
 }
