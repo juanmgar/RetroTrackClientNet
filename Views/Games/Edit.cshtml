@@ -4,6 +4,7 @@
 
 <form asp-action="Edit">
     <input type="hidden" asp-for="Id" />
+
     <div class="mb-3">
         <label asp-for="Title" class="form-label"></label>
         <input asp-for="Title" class="form-control" />
@@ -19,6 +20,9 @@
         <input asp-for="Genre" class="form-control" />
         <span asp-validation-for="Genre" class="text-danger"></span>
     </div>
+
+    <p class="text-muted">La descripción y la imagen se actualizarán automáticamente.</p>
+
     <button type="submit" class="btn btn-primary">Guardar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
