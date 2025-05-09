@@ -1,20 +1,24 @@
 ﻿using RetroTrackSoapClient;
+using System.ServiceModel;
 
 public class ApiSoapClientService
 {
     private readonly UserManagementWSClient _soapClient;
 
-    public ApiSoapClientService()
+    public ApiSoapClientService(string endpointUrl)
     {
-        _soapClient = new UserManagementWSClient();
+        var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport); // Usa HTTPS, si usas HTTP → usa None
+        var endpoint = new EndpointAddress(endpointUrl);
 
-        //Modificación para poder usar certificados sin firmar
+        _soapClient = new UserManagementWSClient(binding, endpoint);
+
+        // Permitir certificados autofirmados
         _soapClient.ClientCredentials.ServiceCertificate.SslCertificateAuthentication =
-        new System.ServiceModel.Security.X509ServiceCertificateAuthentication()
-        {
-            CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None,
-            RevocationMode = System.Security.Cryptography.X509Certificates.X509RevocationMode.NoCheck
-        };
+            new System.ServiceModel.Security.X509ServiceCertificateAuthentication()
+            {
+                CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None,
+                RevocationMode = System.Security.Cryptography.X509Certificates.X509RevocationMode.NoCheck
+            };
     }
 
     public async Task<string> RegisterUserAsync(string username, string password)

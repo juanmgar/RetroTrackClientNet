@@ -10,18 +10,33 @@ builder.Services.AddControllersWithViews();
 // Permite acceder a HttpContext (útil para leer info de la petición)
 builder.Services.AddHttpContextAccessor();
 
-// Registra un cliente HTTP para consumir APIs REST
-builder.Services.AddHttpClient<ApiRestClientService>();
+// Registra un cliente HTTP para consumir APIs REST con BaseAddress y certificado inseguro
+builder.Services.AddHttpClient<ApiRestClientService>((serviceProvider, client) =>
+{
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    var apiRestUrl = configuration["ApiRestUrl"];
+    client.BaseAddress = new Uri(apiRestUrl);
+})
+.ConfigurePrimaryHttpMessageHandler(() =>
+    new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    });
 
-// Registra un cliente SOAP como singleton (una única instancia para toda la app)
-builder.Services.AddSingleton<ApiSoapClientService>();
+builder.Services.AddSingleton<ApiSoapClientService>(serviceProvider =>
+{
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    var soapUrl = configuration["ApiSoapUrl"];
+    return new ApiSoapClientService(soapUrl);
+});
+
 
 // Configura sesión para poder guardar datos como el token JWT entre peticiones
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);  // tiempo de inactividad antes de expirar
-    options.Cookie.HttpOnly = true;                  // protege la cookie frente a acceso por JS
-    options.Cookie.IsEssential = true;              // asegura que siempre se guarde la cookie
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 builder.WebHost.ConfigureKestrel(options =>
@@ -32,36 +47,26 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 
+builder.Logging.AddConsole();
+
 var app = builder.Build();
 
-// ======== IGNORAR VALIDACIÓN DE CERTIFICADOS SOLO EN DESARROLLO ========
-System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-    (sender, cert, chain, sslPolicyErrors) => true;
+System.Net.ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
 // ======== CONFIGURACIÓN DEL PIPELINE ========
 
-// Muestra página de error amigable en producción
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
 
-// Permite servir archivos estáticos (css, js, imágenes, etc.)
 app.UseStaticFiles();
-
-// Habilita enrutamiento para controladores
 app.UseRouting();
-
-// Activa el middleware de sesión para almacenar info entre peticiones
 app.UseSession();
-
-// Activa la autorización (aunque no tengas [Authorize], siempre debe estar configurado)
 app.UseAuthorization();
 
-// Define la ruta por defecto del proyecto MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Arranca la aplicación web
 app.Run();
