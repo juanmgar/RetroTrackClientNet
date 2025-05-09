@@ -77,49 +77,5 @@ namespace RetroTrack.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> FetchDescription(int id)
-        {
-            var game = await _apiClient.GetGameByIdAsync(id);
-            if (game == null) return NotFound();
-
-            var codeID = "e6a0126080a14743825d61ecc3e5a349";
-            var rawgUrl = $"https://api.rawg.io/api/games?search={Uri.EscapeDataString(game.Title)}&key={codeID}";
-
-            var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync(rawgUrl);
-
-            if (!response.IsSuccessStatusCode)
-                return RedirectToAction("Details", new { id });
-
-            var json = await response.Content.ReadAsStringAsync();
-            using var doc = JsonDocument.Parse(json);
-            var root = doc.RootElement;
-
-            if (root.TryGetProperty("results", out var results) && results.GetArrayLength() > 0)
-            {
-                var firstGame = results[0];
-                if (firstGame.TryGetProperty("slug", out var slug))
-                {
-                    // Hacer otra llamada para obtener el detalle completo
-                    var detailUrl = $"https://api.rawg.io/api/games/{slug.GetString()}?key={codeID}";
-                    var detailResponse = await client.GetAsync(detailUrl);
-
-                    if (detailResponse.IsSuccessStatusCode)
-                    {
-                        var detailJson = await detailResponse.Content.ReadAsStringAsync();
-                        using var detailDoc = JsonDocument.Parse(detailJson);
-                        var detailRoot = detailDoc.RootElement;
-
-                        if (detailRoot.TryGetProperty("description_raw", out var description))
-                        {
-                            game.Description = description.GetString();
-                            await _apiClient.UpdateGameAsync(game);
-                        }
-                    }
-                }
-            }
-
-            return RedirectToAction("Details", new { id });
-        }
     }
 }
