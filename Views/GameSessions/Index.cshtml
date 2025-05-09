@@ -21,10 +21,17 @@
                 <td>@session.PlayedAt.ToShortDateString()</td>
                 <td>@session.MinutesPlayed</td>
                 <td>
-                    <a class="btn btn-sm btn-primary"
-                       href="@($"{ViewBag.ApiBaseUrl}GameSessions/{session.Id}/Screenshot")" target="_blank">
-                        Descargar
-                    </a>
+                    @if (session.Screenshot != null && session.Screenshot.Length > 0)
+                    {
+                        <a class="btn btn-sm btn-primary"
+                           href="@($"{ViewBag.ApiBaseUrl}GameSessions/{session.Id}/Screenshot")" target="_blank">
+                            Descargar
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sin screenshot</span>
+                    }
                 </td>
             </tr>
         }
