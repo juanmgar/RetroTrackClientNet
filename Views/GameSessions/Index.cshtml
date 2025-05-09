@@ -22,8 +22,7 @@
                 <td>@session.MinutesPlayed</td>
                 <td>
                     <a class="btn btn-sm btn-primary"
-                       href="http://localhost:5099/retrotrack/api/GameSessions/@session.Id/Screenshot"
-                       target="_blank">
+                       href="@($"{ViewBag.ApiBaseUrl}GameSessions/{session.Id}/Screenshot")" target="_blank">
                         Descargar
                     </a>
                 </td>

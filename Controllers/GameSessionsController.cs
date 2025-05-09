@@ -7,10 +7,12 @@ namespace RetroTrack.Controllers
     public class GameSessionsController : Controller
     {
         private readonly ApiRestClientService _apiClient;
+        private readonly IConfiguration _configuration;
 
-        public GameSessionsController(ApiRestClientService apiClient)
+        public GameSessionsController(ApiRestClientService apiClient, IConfiguration configuration)
         {
             _apiClient = apiClient;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index()
@@ -27,6 +29,8 @@ namespace RetroTrack.Controllers
                 PlayedAt = s.PlayedAt,
                 MinutesPlayed = s.MinutesPlayed
             }).ToList();
+
+            ViewBag.ApiBaseUrl = _configuration["ApiRestUrl"];
 
             return View(sessionModels);
         }
