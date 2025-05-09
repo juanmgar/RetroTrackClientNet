@@ -27,7 +27,8 @@ namespace RetroTrack.Controllers
                 GameTitle = games.FirstOrDefault(g => g.Id == s.GameId)?.Title ?? "Desconocido",
                 PlayerId = s.PlayerId,
                 PlayedAt = s.PlayedAt,
-                MinutesPlayed = s.MinutesPlayed
+                MinutesPlayed = s.MinutesPlayed,
+                Screenshot = s.Screenshot
             }).ToList();
 
             ViewBag.ApiBaseUrl = _configuration["ApiRestUrl"];
