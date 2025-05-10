@@ -31,64 +31,7 @@ namespace RetroTrack.Controllers
                 Screenshot = s.Screenshot
             }).ToList();
 
-            ViewBag.ApiBaseUrl = _configuration["ApiRestUrl"];
-
             return View(sessionModels);
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var session = await _apiClient.GetGameSessionByIdAsync(id);
-            if (session == null) return NotFound();
-            return View(session);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(GameSession session)
-        {
-            if (ModelState.IsValid)
-            {
-                await _apiClient.AddGameSessionAsync(session);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(session);
-        }
-
-        public async Task<IActionResult> Edit(int id)
-        {
-            var session = await _apiClient.GetGameSessionByIdAsync(id);
-            if (session == null) return NotFound();
-            return View(session);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(GameSession session)
-        {
-            if (ModelState.IsValid)
-            {
-                await _apiClient.UpdateGameSessionAsync(session);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(session);
-        }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var session = await _apiClient.GetGameSessionByIdAsync(id);
-            if (session == null) return NotFound();
-            return View(session);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            await _apiClient.DeleteGameSessionAsync(id);
-            return RedirectToAction(nameof(Index));
         }
     }
 }

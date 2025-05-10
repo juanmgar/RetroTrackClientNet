@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RetroTrack.Models;
 using RetroTrack.Services;
 

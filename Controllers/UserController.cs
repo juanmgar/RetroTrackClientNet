@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetroTrack.Services;
-using System.Threading.Tasks;
 
 namespace RetroTrack.Controllers
 {
@@ -36,7 +34,7 @@ namespace RetroTrack.Controllers
         {
             var token = await _soapClient.LoginAsync(username, password);
 
-            if (token.StartsWith("ey")) // TODO: simple validación JWT
+            if (token.StartsWith("ey"))
             {
                 // Guardar el token en sesión
                 HttpContext.Session.SetString("JWT", token);

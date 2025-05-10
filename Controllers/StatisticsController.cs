@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetroTrack.Models;
 using RetroTrack.Services;
 
 namespace RetroTrack.Controllers
