@@ -8,15 +8,27 @@
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label asp-for="Platform" class="form-label"></label>
         <input asp-for="Platform" class="form-control" />
         <span asp-validation-for="Platform" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label asp-for="Genre" class="form-label"></label>
         <input asp-for="Genre" class="form-control" />
         <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input asp-for="Description" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ScreenshotUrl" class="form-label"></label>
+        <input asp-for="ScreenshotUrl" class="form-control" readonly />
     </div>
 
     <p class="text-muted">La descripción y la imagen se agregarán automáticamente después de guardar.</p>
